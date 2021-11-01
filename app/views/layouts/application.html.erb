@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Yellow Pages</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <%= render "shared/navbar" %>
+      <%= yield %>
+      <footer class="page-footer font-small">
+        <div class="footer-copyright text-center py-3">
+          <%= link_to("Privacy Policy", privacy_policy_news_articles_path) %>
+        </div>
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+          <a href="#">Yellow Pages</a>
+        </div>
+      </footer>
+      <footer class="bg-light text-center text-lg-start">
+    </div>
+  </body>
+</html>

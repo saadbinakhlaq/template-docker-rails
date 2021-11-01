@@ -1,0 +1,58 @@
+version: "3.0"
+services:
+  app_redis:
+    image: redis:4.0-alpine
+    command: redis-server
+    volumes:
+      - shared_data:/var/shared/redis
+  db:
+    image: postgres:12.5-alpine
+    ports:
+      - 5091:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data      
+
+  webpacker:
+    image: ${DOCKER_IMAGE_NAME-app_name_app}
+    command: ["./scripts/start_webpack_dev.sh"]
+    env_file: .env.development
+    volumes:
+      - .:/var/app:cached
+    ports:
+      - 3035:3035
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0      
+
+  web:
+    image: ${DOCKER_IMAGE_NAME-app_name_app}
+    env_file: .env.development
+    build:
+      context: .
+      args:
+        precompileassets: "not"
+    links:
+      - db
+      - webpacker
+    ports:
+      - 3000:3000
+    command: ["./scripts/wait-for-it.sh", "db:5432", "--", "./scripts/start_rails.sh"]
+    volumes:
+      - .:/var/app:cached
+    environment:
+      WEBPACKER_DEV_SERVER_HOST: webpacker
+  sidekiq:
+    image: ${DOCKER_IMAGE_NAME-app_name_app}
+    env_file: .env.development
+    command: ["bundle", "exec", "sidekiq"]
+    volumes:
+      - .:/var/app:cached
+    links:
+      - db
+
+
+volumes:
+  shared_data:
+  db_data:

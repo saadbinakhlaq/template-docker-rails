@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-sm navbar-light flex-wrap flex-md-nowrap">
+  <div class="container">
+    <%= link_to(root_path(language: @language), class: "navbar-brand") do %>
+      <span>CryotoCat - <b>Stay Informed</b></span>
+    <% end %>
+    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse justify-content-left" id="navbarSupportedContent">
+      <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav pt-2 py-md-0">
+        <li class="nav-item col-6 col-md-auto">
+          <%= link_to("All News", news_articles_path(language: @language), class: "nav-link p-2") %>
+        </li>
+        <li class="nav-item col-6 col-md-auto">
+          <%= link_to(ApplicationHelper.category_name("Opinion", @language), news_articles_path(category: "Opinion", language: @language), class: "nav-link p-2") %>
+        </li>
+        <li class="nav-item col-6 col-md-auto">
+          <%= link_to(ApplicationHelper.category_name("Features", @language), news_articles_path(category: "Features", language: @language), class: "nav-link p-2") %>
+        </li>
+        <li class="nav-item col-6 col-md-auto">
+          <%= link_to(ApplicationHelper.category_name("Markets", @language), news_articles_path(category: "Markets", language: @language), class: "nav-link p-2") %>
+        </li>
+        <li class="nav-item col-6 col-md-auto">
+          <%= link_to(ApplicationHelper.category_name("Tech", @language), news_articles_path(category: "Tech", language: @language), class: "nav-link p-2") %>
+        </li>
+        <li class="nav-item col-6 col-md-auto">
+          <%= link_to(ApplicationHelper.category_name("Business", @language), news_articles_path(category: "Business", language: @language), class: "nav-link p-2") %>
+        </li>
+        <li class="nav-item col-6 col-md-auto">
+          <%= link_to(ApplicationHelper.category_name("Policy & Regulation", @language), news_articles_path(category: "Policy & Regulation", language: @language), class: "nav-link p-2") %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

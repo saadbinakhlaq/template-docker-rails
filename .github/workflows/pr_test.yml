@@ -1,0 +1,27 @@
+name: Run Specs
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Testing PR
+    env:
+      COMPOSE_FILE: docker-compose.yml
+  
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+  
+    - name: Build docker images
+      run: docker-compose build
+  
+    - name: Create test db
+      run: docker-compose run web bundle exec rake db:create
+    - name: Create test schema
+      run: docker-compose run web bundle exec rake db:schema:load
+  
+    - name: Run Tests
+      run: docker-compose run web bundle exec rake

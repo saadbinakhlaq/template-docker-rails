@@ -1,0 +1,62 @@
+<table>
+  <%= form_with(model: @news_article, local: true) do |form| %>
+    <tr>
+      <td colspan="2">
+        <% if @news_article.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(news.errors.count, "error") %> prohibited this news article from being saved:</h2>
+
+            <ul>
+              <% news.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <div class="field">
+        <td><%= form.label :title %></td>
+        <td><%= form.text_field :title, id: :news_article_title, maxlength: "50" %></td>
+      </div>
+    </tr>
+
+    <tr>
+      <div class="field">
+        <td><%= form.label :summary %></td>
+        <td><%= form.text_area :summary, id: :news_article_summary, cols: "50", rows: "5" %></td>
+      </div>
+    </tr>
+
+    <tr>
+      <div class="field">
+        <td><%= form.label :full_url %></td>
+        <td><%= form.text_field :full_url, id: :news_article_full_url, maxlength:"50" %></td>
+      </div>
+    </tr>
+
+    <tr>
+      <div class="field">
+        <td><%= form.label :media_url %></td>
+        <td><%= form.text_field :media_url, id: :news_article_media_url, maxlength:"50" %></td>
+      </div>
+    </tr>
+
+    <tr>
+      <div class="field">
+        <td><%= form.label :media_type %></td>
+        <td><%= form.select :media_type, NewsArticle.media_types.keys, maxlength:"10" %></td>
+      </div>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <div class="actions">
+          <%= form.submit %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

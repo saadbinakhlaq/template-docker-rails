@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-sm-4">
+    <div class="vertical-center">
+      <%= image_tag("mobile_with_news.png", :alt => "app image", class: "center-block", width: "353px", height: "670px") %>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="vertical-center">
+      <div class="container">
+        <h1 class="text-primary">Read all about cryptocurrencies in short.</h1>
+        <h2 class="text-muted">
+          We understand you don’t have time to go through long news articles everyday.
+          So we cut the clutter and deliver them, in short. Download Yellow Pages to keep yourself updated,
+          or <%= link_to("Read Now", news_articles_path) %>.
+        </h2>
+
+        <div class="text-center">
+          <h4 class="text-muted">Download:</h4>
+          <%= image_tag("google-play-badge.png", :alt => "google-play", height: "50px", width: "130px" ) %>
+          <%= image_tag("app-store-badge.png", :alt => "app-store", height: "35px", width: "110px" ) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

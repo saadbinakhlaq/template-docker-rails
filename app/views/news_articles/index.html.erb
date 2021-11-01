@@ -1,0 +1,46 @@
+<div>
+  <% @news_articles.each do |news_article| %>
+    <div class="row mt-2">
+      <div>
+        <p><b><%= news_article.title %></b></p>
+        <p id="<%= "summary-#{news_article.id}" %>">
+          <%= news_article.summary %><br>
+          <a href="<%= news_article.full_url %>" target="_blank" rel="noopener noreferrer" class="card-link">
+            Read full article
+          </a>
+        </p>
+        <hr>
+
+        <% if news_article.related_news_ids.present? %>
+          <div class="card-footer">
+           <small class="text-muted">
+             Sources:
+             <select id="<%= news_article.id %>">
+               <option value="<%= news_article.summary %> ||| <%= news_article.full_url %>"><%= news_article.source %></option>
+
+               <% news_article.related_news(@language).each do |related_news| %>
+                 <option value="<%= related_news.summary %> ||| <%= related_news.full_url %>"><%= related_news.source %></option>
+               <% end %>
+             </select>
+           </small>
+         </div>
+       <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="row justify-content-center">
+    <div class="pagination">
+      <%= will_paginate @news_articles, :renderer => BootstrapPagination::Rails %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("select").on("change", function() {
+    var news_article_id = $(this).attr("id");
+    var value = $(this).val();
+    var x = document.getElementById("summary-"+news_article_id);
+    values = value.split("|||")
+    x.innerHTML = values[0] + "<br>" + "<a href=" + values[1] + " target=" + "_blank rel=" + "noopener noreferrer" + "class=" + "card-link" + ">" + " Read full article" + "</a>";
+  });
+</script>
